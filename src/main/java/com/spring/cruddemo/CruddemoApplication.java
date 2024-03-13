@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.sql.SQLOutput;
+
 @SpringBootApplication
 public class CruddemoApplication {
 
@@ -20,8 +22,18 @@ public class CruddemoApplication {
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
 			//createStudent(studentDAO);
-			createMultipleStudents(studentDAO);
+			//createMultipleStudents(studentDAO);
+			readStudent(studentDAO);
 		};
+	}
+
+	private void readStudent(StudentDAO studentDAO) {
+		System.out.println("Creatingnew student obj");
+		Student tempStudent = new Student("John","Jony","jony@gmail.com");
+		studentDAO.save(tempStudent);
+		System.out.println("Saved student. Generated id: " + tempStudent.getId());
+		Student student = studentDAO.findById(tempStudent.getId());
+		System.out.println(student);
 	}
 
 	private void createMultipleStudents(StudentDAO studentDAO) {
