@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.sql.SQLOutput;
+import java.util.List;
 
 @SpringBootApplication
 public class CruddemoApplication {
@@ -23,9 +24,33 @@ public class CruddemoApplication {
 		return runner -> {
 			//createStudent(studentDAO);
 			//createMultipleStudents(studentDAO);
-			readStudent(studentDAO);
+			//readStudent(studentDAO);
+			//queryForStudents(studentDAO);
+			queryForStudentsByLastName(studentDAO);
 		};
 	}
+
+	private void queryForStudentsByLastName(StudentDAO studentDAO) {
+		//get a list of students
+		List<Student> students = studentDAO.findByLastName("Black");
+
+		//display list of students
+		for(Student student : students){
+			System.out.println(student);
+		}
+	}
+
+	private void queryForStudents(StudentDAO studentDAO) {
+		//get a list of students
+		List<Student> students = studentDAO.findAll();
+
+		//display list of students
+		for(Student student : students){
+			System.out.println(student);
+		}
+	}
+
+
 
 	private void readStudent(StudentDAO studentDAO) {
 		System.out.println("Creatingnew student obj");
